@@ -3,7 +3,7 @@ import threading
 
 # Read the STL file
 reader = vtk.vtkSTLReader()
-reader.SetFileName('dyanamic_base_turbine.stl')
+reader.SetFileName('dynamic_base_turbine.stl')
 
 # Create a mapper for the STL data
 mapper = vtk.vtkPolyDataMapper()
@@ -26,7 +26,6 @@ renderWindowInteractor.SetRenderWindow(renderWindow)
 
 # Add the actor and axes to the scene
 renderer.AddActor(actor)
-#renderer.AddActor(axes)
 
 # Set background color
 renderer.SetBackground(1, 1, 1)
@@ -36,14 +35,14 @@ transform = vtk.vtkTransform()
 
 # Initialize rotation speed and angle
 angle = 0
-rotation_speed = -1  # Default rotation speed
+rotation_speed = 1  # Default rotation speed
 
 # Function to update the rotation
 def rotate_model(obj, event):
     global angle
     angle += rotation_speed  # Increment angle by the set speed
     transform.Identity()  # Reset transform
-    transform.RotateZ(angle)  # Apply rotation around Z-axis
+    transform.RotateY(angle)  # Apply rotation around Z-axis
     actor.SetUserTransform(transform)  # Update actor with new transform
     renderWindow.Render()  # Refresh window
 
@@ -53,7 +52,7 @@ def input_rotation_speed():
     while True:
         try:
             speed = float(input("Enter rotation speed: "))
-            #rotation_speed = max(0, speed)  # Ensure non-negative speed
+            rotation_speed = max(0, speed)  # Ensure non-negative speed
         except ValueError:
             print("Invalid input. Please enter a number.")
 
