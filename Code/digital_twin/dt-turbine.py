@@ -1,17 +1,24 @@
 import vtk
 import threading
 
+# Names of files
+filenames = ["dynamic_base_turbine.stl", "static_base_turbine.stl"]
+
 # Read the STL file
-reader = vtk.vtkSTLReader()
-reader.SetFileName('dynamic_base_turbine.stl')
+actors = []
+for name in filenames:
+    reader = vtk.vtkSTLReader()
+    reader.SetFileName(name)
 
-# Create a mapper for the STL data
-mapper = vtk.vtkPolyDataMapper()
-mapper.SetInputConnection(reader.GetOutputPort())
+    # Create a mapper for the STL data
+    mapper = vtk.vtkPolyDataMapper()
+    mapper.SetInputConnection(reader.GetOutputPort())
 
-# Create an actor for the STL model
-actor = vtk.vtkActor()
-actor.SetMapper(mapper)
+    # Create an actor for the STL model
+    actor = vtk.vtkActor()
+    actor.SetMapper(mapper)
+
+    actors.append(actor)
 
 # Create axes and set their length
 axes = vtk.vtkAxesActor()
@@ -24,8 +31,9 @@ renderWindow.AddRenderer(renderer)
 renderWindowInteractor = vtk.vtkRenderWindowInteractor()
 renderWindowInteractor.SetRenderWindow(renderWindow)
 
-# Add the actor and axes to the scene
-renderer.AddActor(actor)
+for actor in actors:
+    # Add the actor and axes to the scene
+    renderer.AddActor(actor)
 
 # Set background color
 renderer.SetBackground(1, 1, 1)
@@ -42,8 +50,8 @@ def rotate_model(obj, event):
     global angle
     angle += rotation_speed  # Increment angle by the set speed
     transform.Identity()  # Reset transform
-    transform.RotateY(angle)  # Apply rotation around Z-axis
-    actor.SetUserTransform(transform)  # Update actor with new transform
+    transform.RotateY(angle)  # Apply rotation around Y-axis
+    actors[0].SetUserTransform(transform)  # Update actor with new transform
     renderWindow.Render()  # Refresh window
 
 # Function to allow user input for rotation speed
