@@ -27,6 +27,7 @@ axes.SetTotalLength(100, 100, 100)
 # Create a renderer, render window, and interactor
 renderer = vtk.vtkRenderer()
 renderWindow = vtk.vtkRenderWindow()
+renderWindow.SetSize(2000, 2000)
 renderWindow.AddRenderer(renderer)
 renderWindowInteractor = vtk.vtkRenderWindowInteractor()
 renderWindowInteractor.SetRenderWindow(renderWindow)
