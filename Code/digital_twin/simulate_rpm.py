@@ -2,7 +2,9 @@ import serial
 import time
 import random
 
-ser = serial.Serial('/dev/ttyS0', 115200, timeout = 1)
+SIMULATED_PORT = "/dev/ttys003"  # Replace with the first PTY from socat
+
+ser = serial.Serial(SIMULATED_PORT, 115200, timeout=1)
 
 while True:
     simulated_rpm = 30 + random.uniform(-5, 5)
