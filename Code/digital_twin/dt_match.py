@@ -4,11 +4,11 @@ import threading
 import time
 
 # Serial Port Configuration (Change this to match your device)
-SERIAL_PORT = "/dev/ttys004"  # Replace with correct port, e.g., "/dev/ttys004" for macOS
+SERIAL_PORT = "/dev/ttys005"  # Replace with correct port, e.g., "/dev/ttys004" for macOS
 BAUD_RATE = 115200
 
 # STL Files
-filenames = ["dynamic_base_turbine.stl", "static_base_turbine.stl"]
+filenames = ["dynamic_base.stl", "static_base.stl"]
 
 # Read the STL file
 actors = []
@@ -66,7 +66,7 @@ def read_serial():
         if ser.in_waiting > 0:
             try:
                 rpm = float(ser.readline().decode().strip())
-                rotation_speed = (rpm * 360) / 60  # Convert RPM to degrees per second
+                rotation_speed = rpm
                 print(f"Received RPM: {rpm}, Rotation Speed: {rotation_speed}°/s")
             except ValueError:
                 print("Invalid data received from serial.")

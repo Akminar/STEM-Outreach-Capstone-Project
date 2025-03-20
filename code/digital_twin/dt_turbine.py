@@ -2,7 +2,7 @@ import vtk
 import threading
 
 # Names of files
-filenames = ["dynamic_base_turbine.stl", "static_base_turbine.stl"]
+filenames = ["dynamic_base.stl", "static_base.stl"]
 
 # Read the STL file
 actors = []
